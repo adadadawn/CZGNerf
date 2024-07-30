@@ -800,7 +800,8 @@ class Trainer(object):
         eye = data['eye'] # [B, 1]
         auds = data['auds'] # [B, 29, 16] now [B,1,512]
         audact = data['auds'].clone() # [B, 29, 16]  now[8,1,512]
-        audneg = data['rev_aud']  # now[8,1,512]
+        if self.opt.contrast_loss:
+            audneg = data['rev_aud']  # now[8,1,512]
         index = data['index'] # [B]  第几帧
         #print('audact.shape',audact.shape)  #  [8,1,512]
         # print('audneg',audneg.shape)  #  [8,1,512]
