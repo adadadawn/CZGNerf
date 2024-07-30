@@ -316,8 +316,8 @@ class ContrastiveLoss(nn.Module):
 
     def forward(self, output1, output2, labels):
         # Normalize the outputs
-        z1 = F.normalize(output1, dim=1)
-        z2 = F.normalize(output2, dim=1)
+        z1 = F.normalize(output1, dim=1).to(self.device)
+        z2 = F.normalize(output2, dim=1).to(self.device)
 
         # Compute cosine similarity
         similarity_matrix = F.cosine_similarity(z1.unsqueeze(1), z2.unsqueeze(0), dim=2)
