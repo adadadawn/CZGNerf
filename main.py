@@ -10,6 +10,7 @@ from nerf_triplane.network import NeRFNetwork
 from nerf_triplane.fast_neural_style import functions as perceptual_functions
 from nerf_triplane.fast_neural_style import tvloss
 
+#test guo
 # torch.autograd.set_detect_anomaly(True)
 # Close tf32 features. Fix low numerical accuracy on rtx30xx gpu.
 try:
