@@ -924,7 +924,7 @@ class Trainer(object):
 
             # torch_vis_2d(rgb[0])
             # torch_vis_2d(pred_rgb[0])
-            
+            # jushining
             # LPIPS loss
             loss = loss + 0.01 * self.criterion_lpips_alex(pred_rgb, rgb)
         
