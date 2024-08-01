@@ -801,7 +801,7 @@ class Trainer(object):
         auds = data['auds'] # [B, 29, 16] now [B,1,512]
         audact = data['auds'].clone() # [B, 29, 16]  now[8,1,512]
         if self.opt.contrast_loss:
-            audneg = data['rev_aud'].to(self.device)  # now[8,1,512]
+            audneg = data['rev_aud']  # now[8,1,512]
         index = data['index'] # [B]  第几帧
         #print('audact.shape',audact.shape)  #  [8,1,512]
         # print('audneg',audneg.shape)  #  [8,1,512]
@@ -924,7 +924,7 @@ class Trainer(object):
 
             # torch_vis_2d(rgb[0])
             # torch_vis_2d(pred_rgb[0])
-            # jushining
+            
             # LPIPS loss
             loss = loss + 0.01 * self.criterion_lpips_alex(pred_rgb, rgb)
         
@@ -968,7 +968,7 @@ class Trainer(object):
             ambient_eye = outputs['ambient_eye'] / self.opt.max_steps
 
             loss_cross = ((ambient_eye * ambient_aud.detach())*face_mask.view(-1)).mean()
-            loss += 1e-6*lambda_amb*loss_cross
+            loss += lambda_amb*loss_cross
 
         # TODO emo att loss
         # emo att loss

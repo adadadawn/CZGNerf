@@ -764,7 +764,7 @@ class NeRFNetwork(NeRFRenderer):
 
         self.contrast_loss = self.opt.contrast_loss
         if self.contrast_loss:
-            self.contrastNet = ContrastiveNet()
+            self.contrastNet = ContrastiveNet(audio_dim=self.audio_dim)
             self.contrastloss = ContrastiveLoss()
         else:
             pass

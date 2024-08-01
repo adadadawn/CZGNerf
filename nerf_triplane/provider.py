@@ -459,9 +459,11 @@ class NeRFDataset:
                     # support both [N, 16] labels and [N, 16, K] logits
                     if len(rev_aud_features.shape) == 3:
                         rev_aud_features = rev_aud_features.float().permute(0, 2, 1)  # [N, 16, 29] --> [N, 29, 16]
-                if  rev_aud_features.shape[0]<audio_length:
-                    print('rev_aud too short,repeat 2')
-                    rev_aud_features = rev_aud_features.repeat(2, 1, 1)
+
+                while rev_aud_features.shape[0]<audio_length:
+                        print('rev_aud too short,repeat 2')
+                        rev_aud_features = rev_aud_features.repeat(2, 1, 1)
+                        # print('rev_aud_features',rev_aud_features.shape)
 
         if self.opt.au45:
             import pandas as pd
@@ -796,8 +798,9 @@ class NeRFDataset:
             auds = get_audio_features(self.auds, self.opt.att, index[0]).to(self.device)
             results['auds'] = auds
             if self.opt.contrast_loss:
-                rev_auds = get_audio_features(self.rev_auds,self.opt.att, index[0])
+                rev_auds = get_audio_features(self.rev_auds,self.opt.att, index[0]).to(self.device)
                 results['rev_aud'] = rev_auds
+                # print('rev_auds.shape',rev_auds.shape)  // [8, 1, 512]
         # head pose and bg image may mirror (replay --> <-- --> <--).
         index[0] = self.mirror_index(index[0])
 
