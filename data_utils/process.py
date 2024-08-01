@@ -86,7 +86,7 @@ def extract_landmarks(ori_imgs_dir,base_dir):  # 用openface
     print(f'[INFO] ===== extract face landmarks from {ori_imgs_dir} =====')
     # 读取CSV文件
     print('use openface')
-    df = pd.read_csv(f'{base_dir}/lmk.csv')#提取人脸关键点
+    df = pd.read_csv(f'{base_dir}/lmk.csv')
 
     # 获取所有列名
     columns = df.columns
@@ -321,8 +321,7 @@ def face_tracking(ori_imgs_dir):
     # read one image to get H/W
     tmp_image = cv2.imread(image_paths[0], cv2.IMREAD_UNCHANGED) # [H, W, 3]
     h, w = tmp_image.shape[:2]
-    # ori_imgs_dir="/data15/guojb2401/CZGNerf/data_utils/face_tracking/3DMM /3DMM_info.npy"
-    print("ori_imgs_dir",ori_imgs_dir)
+
     cmd = f'python data_utils/face_tracking/face_tracker.py --path={ori_imgs_dir} --img_h={h} --img_w={w} --frame_num={len(image_paths)}'
 
     os.system(cmd)
@@ -682,9 +681,8 @@ if __name__ == '__main__':
     if opt.task == -1 or opt.task == 10:
         save_transforms(base_dir, ori_imgs_dir)
 
-    # if opt.task == -1 or opt.task == 11:
-    #     extract_emotion_label(ori_imgs_dir,base_dir)
-
+    if opt.task == -1 or opt.task == 11:
+        extract_emotion_label(ori_imgs_dir,base_dir)
 
 
 
